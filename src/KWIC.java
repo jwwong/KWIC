@@ -4,15 +4,18 @@ import java.util.List;
 
 public class KWIC {
 	
+	private static final String MESSAGE_CMDLINE_ARG = "KWIC <ignore word 1> <ignore word 2> ...";
+	private static final String MESSAGE_WELCOME = "Welcome to KWIC. Please enter your lines:";
+
 	public static void main(String[] args) {
 
 		// Check user input
 		if(args.length == 0) {
-			System.out.println("KWIC <ignore word 1> <ignore word 2> ...");
+			System.out.println(MESSAGE_CMDLINE_ARG);
 			return;
 		}
 		
-		List<String> noiseWords = generateIgnoreWords(args); 
+		List<String> noiseWords = generateListOfNoiseWords(args); 
 		showWelcomeMessage();
 		
 		new Pipeline(
@@ -24,7 +27,7 @@ public class KWIC {
 				new Sink()).run();
 	}
 
-	private static List<String> generateIgnoreWords(String[] args) {
+	private static List<String> generateListOfNoiseWords(String[] args) {
 		List<String> noiseWords = new ArrayList<String>();
 		for (String token : args) {
 			noiseWords.add(token.toLowerCase());
@@ -33,7 +36,7 @@ public class KWIC {
 	}
 
 	private static void showWelcomeMessage() {
-		System.out.println("Welcome to KWIC. Please enter your lines:");
+		System.out.println(MESSAGE_WELCOME);
 	}
 	
 
